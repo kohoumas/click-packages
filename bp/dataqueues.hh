@@ -19,12 +19,21 @@
 
 #include <click/config.h>
 #ifdef CLICK_OML
-#include "/usr/include/oml2/omlc.h"
-#include "/usr/include/libsigar/sigar.h"
+#include <oml2/omlc.h>
+#ifdef HAVE_LIBSIGAR_SIGAR_H
+#include <libsigar/sigar.h>
 extern "C" {
-#include "/usr/include/libsigar/sigar_format.h"
+#include <libsigar/sigar_format.h>
 }
 #endif
+#ifdef HAVE_SIGAR_H
+#include <sigar.h>
+extern "C" {
+#include <sigar_format.h>
+}
+#endif
+#endif
+
 
 CLICK_DECLS
 
@@ -114,9 +123,11 @@ protected:
   uint32_t _metric101;
   uint32_t _delay_sec;
   uint32_t _delay_nsec;
+#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
   sigar_t *_sigar;
   sigar_cpu_t _cpu;
   sigar_cpu_perc_t _cpu_perc;
+#endif
 #endif
 
   uint32_t get_backlog(Flow f) {

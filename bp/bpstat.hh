@@ -49,9 +49,11 @@ private:
 #ifdef CLICK_OML
   OmlMP* mp;
   static OmlMPDef mp_bpstat[];
+#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
   sigar_t *_sigar;
   sigar_cpu_t _cpu;
   sigar_cpu_perc_t _cpu_perc;
+#endif
 #endif
 
   void run_timer(Timer *);
