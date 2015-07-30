@@ -160,7 +160,9 @@ void BPStat::run_timer(Timer *) {
       omlc_set_uint32 (values[0], _period);
       omlc_set_uint32 (values[1], _ip.data()[3]);
 #ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
-      omlc_set_double (values[2], _cpu_perc.combined * 100);
+      omlc_set_double (values[2], (int)(_cpu_perc.combined * 10000)/100.0);
+#else
+      omlc_set_double (values[2], -1);
 #endif
       omlc_inject (mp, values);
 
