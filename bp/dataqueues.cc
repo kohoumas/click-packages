@@ -378,7 +378,7 @@ void DataQueues::run_timer(Timer *) {
       omlc_set_uint32 (values[12], _delay_sec);
       omlc_set_uint32 (values[13], _delay_nsec);
 #ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
-      omlc_set_double (values[2], (int)(_cpu_perc.combined * 10000)/100.0);
+      omlc_set_double (values[14], (int)(_cpu_perc.combined * 10000)/100.0);
 #else
       omlc_set_double (values[14], -1);
 #endif
