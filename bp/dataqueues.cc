@@ -41,6 +41,8 @@ OmlMPDef DataQueues::mp_dataqueues[] = {
   { "length101", OML_INT32_VALUE }, // the average length in a period
   { "dropped100", OML_UINT32_VALUE }, // measured in packets per period
   { "dropped101", OML_UINT32_VALUE }, // measured in packets per period 
+  { "droppedlength100", OML_UINT32_VALUE }, // the average dropped queue length in a period
+  { "droppedlength101", OML_UINT32_VALUE }, // the average dropped queue length in a period
   { "metric100", OML_UINT32_VALUE },
   { "metric101", OML_UINT32_VALUE },
   { "delay_sec", OML_UINT32_VALUE },
