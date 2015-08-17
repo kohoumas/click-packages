@@ -207,10 +207,12 @@ void DataQueuesMulticast::do_periodically() {
       if (!qm->key().compare("5.0.0.100")) {
         _length100 = (int32_t)qm->size();
         _dropped100 += dropped;
+        _droppedlength100 = (int32_t)qm->drops();
       }
       else if (!qm->key().compare("5.0.0.101")) {
         _length101 = (int32_t)qm->size();
         _dropped101 += dropped;
+        _droppedlength101 = (int32_t)qm->drops();
       }
 #endif
     }

@@ -119,6 +119,8 @@ protected:
   int32_t _length101;
   uint32_t _dropped100;
   uint32_t _dropped101;
+  uint32_t _droppedlength100;
+  uint32_t _droppedlength101;
   uint32_t _metric100;
   uint32_t _metric101;
   uint32_t _delay_sec;

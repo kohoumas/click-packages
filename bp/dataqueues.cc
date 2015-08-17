@@ -174,6 +174,8 @@ int DataQueues::configure(Vector<String> &conf, ErrorHandler *errh) {
   _length101 = 0;
   _dropped100 = 0;
   _dropped101 = 0;
+  _droppedlength100 = 0;
+  _droppedlength101 = 0;
   _metric100 = 0;
   _metric101 = 0;
   _delay_sec = 0;
@@ -362,7 +364,7 @@ void DataQueues::run_timer(Timer *) {
 #endif
 
       mp_samples_counter = mp_samples_counter_init;
-      OmlValueU values[15];
+      OmlValueU values[17];
       omlc_set_uint32 (values[0], mp_period);
       omlc_set_uint32 (values[1], _ip.data()[3]);
       omlc_set_uint32 (values[2], _packets_rx);
@@ -373,14 +375,16 @@ void DataQueues::run_timer(Timer *) {
       omlc_set_int32 (values[7], _length101);
       omlc_set_uint32 (values[8], _dropped100);
       omlc_set_uint32 (values[9], _dropped101);
-      omlc_set_uint32 (values[10], _metric100);
-      omlc_set_uint32 (values[11], _metric101);
-      omlc_set_uint32 (values[12], _delay_sec);
-      omlc_set_uint32 (values[13], _delay_nsec);
+      omlc_set_uint32 (values[10], _droppedlength100);
+      omlc_set_uint32 (values[11], _droppedlength101);
+      omlc_set_uint32 (values[12], _metric100);
+      omlc_set_uint32 (values[13], _metric101);
+      omlc_set_uint32 (values[14], _delay_sec);
+      omlc_set_uint32 (values[15], _delay_nsec);
 #ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
-      omlc_set_double (values[14], (int)(_cpu_perc.combined * 10000)/100.0);
+      omlc_set_double (values[16], (int)(_cpu_perc.combined * 10000)/100.0);
 #else
-      omlc_set_double (values[14], -1);
+      omlc_set_double (values[16], -1);
 #endif
       omlc_inject (mp, values);
       _packets_rx = 0;
@@ -391,6 +395,8 @@ void DataQueues::run_timer(Timer *) {
       _length101 = 0;
       _dropped100 = 0;
       _dropped101 = 0;
+      _droppedlength100 = 0;
+      _droppedlength101 = 0;
       _metric100 = 0;
       _metric101 = 0;
       _delay_sec = 0;

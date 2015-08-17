@@ -159,6 +159,14 @@ public:
     //click_chatter("queue %s size %u", _key.c_str(), s);
     return (uint32_t)s;
   }
+  uint32_t drops() {
+    int32_t d = 0;
+    for (Ether_Queue_Table::const_iterator eq_iter = get_iterator(); eq_iter.live(); eq_iter++) {
+      d += eq_iter.value()->size();
+    }
+    //click_chatter("queue %s drops %u", _key.c_str(), d);
+    return (uint32_t)d;
+  }
   DataQueue* get_queue(EtherAddress eth) { 
     DataQueue **qp = _EQ.findp(eth);
     DataQueue *q = qp ? *qp : new DataQueue(_key + " + " + eth.unparse_colon(), _capacity, _maclayer, (_policy == MMT ? _V : _V * _theta), _video);
