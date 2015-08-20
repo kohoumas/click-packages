@@ -162,7 +162,7 @@ public:
   uint32_t drops() {
     int32_t d = 0;
     for (Ether_Queue_Table::const_iterator eq_iter = get_iterator(); eq_iter.live(); eq_iter++) {
-      d += eq_iter.value()->size();
+      d += eq_iter.value()->drops();
     }
     //click_chatter("queue %s drops %u", _key.c_str(), d);
     return (uint32_t)d;
