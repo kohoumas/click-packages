@@ -105,7 +105,7 @@ int BPStat::configure(Vector<String> &conf, ErrorHandler *errh) {
   _bpdata->set_enhanced(_enhanced);
 
 #ifdef CLICK_OML
-  mp = omlc_add_mp ("BPStat", mp_bpstat);
+  mp = omlc_add_mp ("bpstat", mp_bpstat);
 #ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
   sigar_open(&_sigar);
   sigar_cpu_get(_sigar, &_cpu);

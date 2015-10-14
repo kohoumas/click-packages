@@ -167,7 +167,7 @@ int DataQueues::configure(Vector<String> &conf, ErrorHandler *errh) {
   mp_samples_counter_init = mp_period / _period ? mp_period / _period : 1;
   mp_period = mp_samples_counter_init * _period;
   mp_samples_counter = mp_samples_counter_init;
-  mp = omlc_add_mp ("DataQueues", mp_dataqueues);
+  mp = omlc_add_mp ("dataqueues", mp_dataqueues);
   _packets_rx = 0;
   _sent100 = 0;
   _sent101 = 0;
