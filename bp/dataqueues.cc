@@ -429,6 +429,8 @@ void DataQueues::push(int port, Packet *p) {
     DataQueue *q = get_related_queue(p);
     uint32_t queue_size = q->size();  
 
+    _empty_note.wake();
+
 #ifdef CLICK_OML
     _packets_rx++;
 #endif
@@ -436,7 +438,6 @@ void DataQueues::push(int port, Packet *p) {
       q->push_back(p);
       if (++queue_size > q->highwater_length()) 
         q->set_highwater_length(queue_size);
-      	_empty_note.wake();
     }
     else {
 #ifdef CLICK_OML
