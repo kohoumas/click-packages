@@ -101,9 +101,9 @@ protected:
   Timer _timer;
   Timestamp _next;
 
-  enum { SLEEPINESS_TRIGGER = 9 };
+  /*enum { SLEEPINESS_TRIGGER = 9 };
   int _sleepiness;
-  ActiveNotifier _empty_note;
+  ActiveNotifier _empty_note;*/
 
 #ifdef CLICK_OML
   unsigned int mp_period; // msecs

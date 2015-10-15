@@ -69,8 +69,8 @@ void* DataQueues::cast(const char *n) {
     return (Storage *)this;
   else if (strcmp(n, "DataQueues") == 0)
     return (DataQueues *)this;
-  else if (strcmp(n, Notifier::EMPTY_NOTIFIER) == 0)
-    return static_cast<Notifier *>(&_empty_note);
+  /*else if (strcmp(n, Notifier::EMPTY_NOTIFIER) == 0)
+    return static_cast<Notifier *>(&_empty_note);*/
   
   return 0;
 }
@@ -160,8 +160,8 @@ int DataQueues::configure(Vector<String> &conf, ErrorHandler *errh) {
   _guard_packet = NULL;
   _lock_pull = false;
 
-  _sleepiness = 0;
-  _empty_note.initialize(Notifier::EMPTY_NOTIFIER, router());
+  /*_sleepiness = 0;
+  _empty_note.initialize(Notifier::EMPTY_NOTIFIER, router());*/
 
 #ifdef CLICK_OML
   mp_samples_counter_init = mp_period / _period ? mp_period / _period : 1;
@@ -429,7 +429,7 @@ void DataQueues::push(int port, Packet *p) {
     DataQueue *q = get_related_queue(p);
     uint32_t queue_size = q->size();  
 
-    _empty_note.wake();
+    //_empty_note.wake();
 
 #ifdef CLICK_OML
     _packets_rx++;
@@ -476,12 +476,12 @@ Packet* DataQueues::pull(int) {
        (_routing == UNICAST && _pull_neig == IPAddress(0)) ||
        (_lock_pull) ||
        (_rate_active && !_rate_shapper.need_update(Timestamp::now())) ) {
-    if (_sleepiness >= SLEEPINESS_TRIGGER) _empty_note.sleep();
-    else _sleepiness++;
+    //if (_sleepiness >= SLEEPINESS_TRIGGER) _empty_note.sleep();
+    //else _sleepiness++;
     return NULL;
   }
   Packet *p = _pull_q->pop_front();
-  _sleepiness = 0;
+  //_sleepiness = 0;
   if (_rate_active && p) _rate_shapper.update_with(p->length());
   if (p == _guard_packet) _lock_pull = true;
 #ifdef CLICK_OML
