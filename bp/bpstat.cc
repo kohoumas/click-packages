@@ -40,7 +40,7 @@ BPStat::BPStat() : _timer(this) {}
 BPStat::~BPStat() {
 #ifdef CLICK_OML
   omlc_close();
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
   sigar_close(_sigar);
 #endif
 #endif
@@ -106,7 +106,7 @@ int BPStat::configure(Vector<String> &conf, ErrorHandler *errh) {
 
 #ifdef CLICK_OML
   mp = omlc_add_mp ("bpstat", mp_bpstat);
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
   sigar_open(&_sigar);
   sigar_cpu_get(_sigar, &_cpu);
 #endif
@@ -150,7 +150,7 @@ void BPStat::run_timer(Timer *) {
 #ifdef CLICK_OML
   if (mp) {
     if (1) {
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
       sigar_cpu_t cpu_new;
       sigar_cpu_get(_sigar, &cpu_new);  
       sigar_cpu_perc_calculate(&_cpu, &cpu_new, &_cpu_perc);
@@ -159,14 +159,14 @@ void BPStat::run_timer(Timer *) {
       OmlValueU values[3];
       omlc_set_uint32 (values[0], _period);
       omlc_set_uint32 (values[1], _ip.data()[3]);
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
       omlc_set_double (values[2], (int)(_cpu_perc.combined * 10000)/100.0);
 #else
       omlc_set_double (values[2], -1);
 #endif
       omlc_inject (mp, values);
 
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
       _cpu = cpu_new;
 #endif
     }
@@ -291,7 +291,7 @@ Packet* BPStat::simple_action(Packet *p) {
 CLICK_ENDDECLS
 EXPORT_ELEMENT(BPStat)
 #ifdef CLICK_OML
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
 ELEMENT_LIBS(-loml2 -lsigar)
 #else
 ELEMENT_LIBS(-loml2)

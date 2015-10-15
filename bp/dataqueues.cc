@@ -57,7 +57,7 @@ DataQueues::DataQueues() : _timer(this), _routing(NONSET) {}
 DataQueues::~DataQueues() {
 #ifdef CLICK_OML
   omlc_close();
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
   sigar_close(_sigar);
 #endif
 #endif
@@ -183,7 +183,7 @@ int DataQueues::configure(Vector<String> &conf, ErrorHandler *errh) {
   _delay_sec = 0;
   _delay_nsec = 0;
 
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
   sigar_open(&_sigar);
   sigar_cpu_get(_sigar, &_cpu);
 #endif
@@ -359,7 +359,7 @@ void DataQueues::run_timer(Timer *) {
 #ifdef CLICK_OML
   if (mp) {
     if (!(--mp_samples_counter)) {
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
       sigar_cpu_t cpu_new;
       sigar_cpu_get(_sigar, &cpu_new);  
       sigar_cpu_perc_calculate(&_cpu, &cpu_new, &_cpu_perc);
@@ -383,7 +383,7 @@ void DataQueues::run_timer(Timer *) {
       omlc_set_uint32 (values[13], _metric101);
       omlc_set_uint32 (values[14], _delay_sec);
       omlc_set_uint32 (values[15], _delay_nsec);
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
       omlc_set_double (values[16], (int)(_cpu_perc.combined * 10000)/100.0);
 #else
       omlc_set_double (values[16], -1);
@@ -404,7 +404,7 @@ void DataQueues::run_timer(Timer *) {
       _delay_sec = 0;
       _delay_nsec = 0;
 
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
       _cpu = cpu_new;
 #endif
     }
@@ -557,7 +557,7 @@ void DataQueues::add_handlers() {
 CLICK_ENDDECLS
 EXPORT_ELEMENT(DataQueues)
 #ifdef CLICK_OML
-#ifdef HAVE_LIBSIGAR_SIGAR_H | HAVE_SIGAR_H
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
 ELEMENT_LIBS(-loml2 -lsigar)
 #else
 ELEMENT_LIBS(-loml2)
