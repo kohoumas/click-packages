@@ -180,7 +180,7 @@ BPForwarder::add_link(Packet *p_in, IPAddress nxt)
   int headers_length = sizeof(click_ether) + pk->hlen_wo_data();
   WritablePacket *wp = p_in->uniqueify();
   wp->push(20); // 20 bytes is the required space in SR header for each link
-  memcpy(wp->data(), p_in->data() + 20, headers_length); 
+  memmove(wp->data(), p_in->data() + 20, headers_length); 
   memset(((char*)wp->data()) + headers_length, 0, 20);
 
   eh = (click_ether *) wp->data();
