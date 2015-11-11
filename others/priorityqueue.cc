@@ -310,5 +310,14 @@ void PriorityQueue::add_handlers() {
 }
 
 
-EXPORT_ELEMENT(PriorityQueue)
 CLICK_ENDDECLS
+EXPORT_ELEMENT(PriorityQueue)
+#ifdef CLICK_OML
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
+ELEMENT_LIBS(-loml2 -locomm -lsigar)
+#else
+ELEMENT_LIBS(-loml2 -locomm)
+#endif
+#endif
+ELEMENT_REQUIRES(userlevel int64)
+

@@ -115,5 +115,14 @@ Packet* Receiver2OML::simple_action(Packet *p) {
   return p;
 }
 
-EXPORT_ELEMENT(Receiver2OML)
 CLICK_ENDDECLS
+EXPORT_ELEMENT(Receiver2OML)
+#ifdef CLICK_OML
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
+ELEMENT_LIBS(-loml2 -locomm -lsigar)
+#else
+ELEMENT_LIBS(-loml2 -locomm)
+#endif
+#endif
+ELEMENT_REQUIRES(userlevel int64)
+

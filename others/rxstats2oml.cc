@@ -152,4 +152,12 @@ RXStats2OML::add_handlers()
 
 CLICK_ENDDECLS
 EXPORT_ELEMENT(RXStats2OML)
+#ifdef CLICK_OML
+#if defined(HAVE_LIBSIGAR_SIGAR_H) || defined(HAVE_SIGAR_H)
+ELEMENT_LIBS(-loml2 -locomm -lsigar)
+#else
+ELEMENT_LIBS(-loml2 -locomm)
+#endif
+#endif
+ELEMENT_REQUIRES(userlevel int64)
 
