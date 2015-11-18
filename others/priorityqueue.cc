@@ -319,5 +319,4 @@ ELEMENT_LIBS(-loml2 -locomm -lsigar)
 ELEMENT_LIBS(-loml2 -locomm)
 #endif
 #endif
-ELEMENT_REQUIRES(userlevel int64)
 

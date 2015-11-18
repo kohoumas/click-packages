@@ -314,5 +314,4 @@ void DataQueuesMulticast::add_handlers() {
 
 CLICK_ENDDECLS
 EXPORT_ELEMENT(DataQueuesMulticast)
-ELEMENT_REQUIRES(userlevel int64)
 
